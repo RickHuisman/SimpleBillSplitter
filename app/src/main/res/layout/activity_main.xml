@@ -1,18 +1,362 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/title_split_bill"
+        app:titleTextAppearance="@style/Title" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bill_card_view"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/libre_franklin_light"
+                    android:text="TOTAL"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/libre_franklin_medium"
+                    android:text="$0"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="0dp"
+                android:gravity="start"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/bill_details_linear_layout"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/libre_franklin_light"
+                    android:text="Bill"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/libre_franklin_light"
+                    android:text="Friends"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/libre_franklin_light"
+                    android:text="Tip"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bill_details_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="0dp"
+                android:gravity="end"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/libre_franklin_regular"
+                    android:text="$0"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/libre_franklin_regular"
+                    android:text="0"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/libre_franklin_regular"
+                    android:text="$0"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/libre_franklin_medium"
+        android:text="Amount of friends"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/bill_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/bill_card_view" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/friends_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/libre_franklin_light"
+        android:text="0"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/bill_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/bill_card_view" />
+
+    <SeekBar
+        android:id="@+id/friends_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:min="2"
+        android:max="6"
+        android:progressBackgroundTint="#FEC72E"
+        android:tickMark="@drawable/seekbar_tickmark"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends_text_view" />
+
+    <View
+        android:id="@+id/divider_one_view"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#99FEC72E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends_seekbar" />
+
+    <TextView
+        android:id="@+id/select_tip_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/libre_franklin_medium"
+        android:text="Select tip"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/bill_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/divider_one_view" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/libre_franklin_light"
+        android:text="$0"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/bill_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/divider_one_view" />
+
+    <LinearLayout
+        android:id="@+id/select_tip_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_tip_text_view">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/zero_percent_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:textColor="@color/colorAccent"
+            app:chipBackgroundColor="@color/colorPrimary"
+            app:chipCornerRadius="4dp"
+            app:chipStrokeColor="@color/colorAccent"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/colorAccent"
+            app:textEndPadding="15dp"
+            app:textStartPadding="15dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/ten_percent_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10%"
+            android:textColor="@color/colorAccent"
+            app:chipBackgroundColor="@color/colorPrimary"
+            app:chipCornerRadius="4dp"
+            app:chipStrokeColor="@color/colorAccent"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/colorAccent"
+            app:textEndPadding="15dp"
+            app:textStartPadding="15dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/fifteen_percent_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15%"
+            android:textColor="@color/colorAccent"
+            app:chipBackgroundColor="@color/colorPrimary"
+            app:chipCornerRadius="4dp"
+            app:chipStrokeColor="@color/colorAccent"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/colorAccent"
+            app:textEndPadding="15dp"
+            app:textStartPadding="15dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/twenty_percent_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20%"
+            android:textColor="@android:color/black"
+            app:chipBackgroundColor="@color/colorAccent"
+            app:chipCornerRadius="4dp"
+            app:chipStrokeColor="@color/colorAccent"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/colorAccent"
+            app:textEndPadding="15dp"
+            app:textStartPadding="15dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/custom_percent_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="~%"
+            android:textColor="@color/colorAccent"
+            app:chipBackgroundColor="@color/colorPrimary"
+            app:chipCornerRadius="4dp"
+            app:chipStrokeColor="@color/colorAccent"
+            app:chipStrokeWidth="1dp"
+            app:rippleColor="@color/colorAccent"
+            app:textEndPadding="15dp"
+            app:textStartPadding="15dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider_two_view"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#99FEC72E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_tip_linear_layout" />
+
+    <include
+        layout="@layout/calculator_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/split_bill_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_two_view" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/split_bill_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="SPLIT BILL"
+        app:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+        app:cornerRadius="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
