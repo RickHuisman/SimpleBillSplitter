@@ -97,10 +97,11 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/bill_details_tip_percentage_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/libre_franklin_light"
-                    android:text="Tip"
+                    android:text="Tip (0%)"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -119,6 +120,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/bill_details_bill_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/libre_franklin_regular"
@@ -127,16 +129,18 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/bill_details_friends_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/libre_franklin_regular"
-                    android:text="0"
+                    android:text="2"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/bill_details_tip_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/libre_franklin_regular"

@@ -1,33 +1,81 @@
 package com.rickh.simplebillsplitter;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Bill {
 
     private BigDecimal mTotal = new BigDecimal(0);
+    private BigDecimal mBillAmount = new BigDecimal(0);
+    private int mFriends;
+    private BigDecimal mTip;
+    private int mTipPercentage;
 
-    public void calculate(int number) {
-        String totalString = mTotal.toString();
+    public void add(int number) {
+        String billAmountString = mBillAmount.toString();
         String numberString = String.valueOf(number);
 
-        mTotal = new BigDecimal(totalString.concat(numberString));
+        mBillAmount = new BigDecimal(billAmountString.concat(numberString));
+
+        calculateTotal();
+    }
+
+    public void addDecimal() {
+        String totalString = mBillAmount.toString();
+
+        System.out.println(totalString.concat(".1"));
+        mBillAmount = new BigDecimal(totalString.concat(".1"));
+
+        calculateTotal();
     }
 
     public void backspace() {
-        String totalString = mTotal.toString();
+        String billAmountString = mBillAmount.toString();
 
-        if (totalString.length() > 1) {
-            mTotal = new BigDecimal(totalString.substring(0, totalString.length() - 1));
+        if (billAmountString.length() > 1) {
+            mBillAmount = new BigDecimal(billAmountString.substring(0, billAmountString.length() - 1));
         } else {
-            mTotal = new BigDecimal(0);
+            mBillAmount = new BigDecimal(0);
         }
+        calculateTotal();
+    }
+
+    public void calculateTotal() {
+        mTotal = mBillAmount.multiply(new BigDecimal("1." + String.valueOf(mTipPercentage)));
+
+        mTotal = mTotal.setScale(2, RoundingMode.HALF_UP);
+        mTotal = new BigDecimal(mTotal.stripTrailingZeros().toPlainString());
+
+        mTip = mTotal.subtract(mBillAmount);
+    }
+
+    public BigDecimal getTip() {
+        return mTip;
+    }
+
+    public int getTipPercentage() {
+        return mTipPercentage;
+    }
+
+    public void setTipPercentage(int percentage) {
+        mTipPercentage = percentage;
+
+        calculateTotal();
     }
 
     public BigDecimal getTotal() {
         return mTotal;
     }
 
-    public void setTotal(BigDecimal mTotal) {
-        this.mTotal = mTotal;
+    public BigDecimal getBillAmount() {
+        return mBillAmount;
+    }
+
+    public int getFriends() {
+        return mFriends;
+    }
+
+    public void setFriends(int friends) {
+        this.mFriends = friends;
     }
 }

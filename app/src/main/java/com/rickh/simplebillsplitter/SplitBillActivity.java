@@ -18,6 +18,9 @@ public class SplitBillActivity extends AppCompatActivity {
     private Chip[] mChips = new Chip[5];
     private Button mSplitBill;
     private TextView mTotalTextView;
+    private TextView mBillDetailsBillTextView;
+    private TextView mBillDetailsTipPercentageTextView;
+    private TextView mBillDetailsTipTextView;
     private Bill mBill;
 
     @Override
@@ -41,15 +44,21 @@ public class SplitBillActivity extends AppCompatActivity {
 
         mSplitBill = findViewById(R.id.split_bill_button);
         mTotalTextView = findViewById(R.id.total_text_view);
+        mBillDetailsBillTextView = findViewById(R.id.bill_details_bill_text_view);
+        mBillDetailsTipPercentageTextView = findViewById(R.id.bill_details_tip_percentage_text_view);
+        mBillDetailsTipTextView = findViewById(R.id.bill_details_tip_text_view);
 
         final TextView amountOfFriendsTextView = findViewById(R.id.friends_text_view);
+        final TextView friendsTextView = findViewById(R.id.bill_details_friends_text_view);
         amountOfFriendsTextView.setText("2");
 
         SeekBar amountOfFriends = findViewById(R.id.friends_seekbar);
         amountOfFriends.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                amountOfFriendsTextView.setText(String.valueOf(progress));
+                mBill.setFriends(progress);
+                amountOfFriendsTextView.setText(String.valueOf(mBill.getFriends()));
+                friendsTextView.setText(String.valueOf(mBill.getFriends()));
             }
 
             @Override
@@ -111,6 +120,27 @@ public class SplitBillActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             setSelectedChip(view.getId());
+
+            int percentage = -1;
+            switch (view.getId()) {
+                case R.id.zero_percent_chip:
+                    percentage = 0;
+                    break;
+                case R.id.ten_percent_chip:
+                    percentage = 10;
+                    break;
+                case R.id.fifteen_percent_chip:
+                    percentage = 15;
+                    break;
+                case R.id.twenty_percent_chip:
+                    percentage = 20;
+                    break;
+            }
+            if (percentage != -1) {
+                mBill.setTipPercentage(percentage);
+
+                updateViews();
+            }
         }
     };
 
@@ -151,15 +181,25 @@ public class SplitBillActivity extends AppCompatActivity {
                     number = 9;
                     break;
                 case R.id.decimal_button:
+                    mBill.addDecimal();
                     break;
                 case R.id.backspace_image_view:
                     mBill.backspace();
                     break;
             }
             if (number != -1) {
-                mBill.calculate(number);
+                mBill.add(number);
             }
-            mTotalTextView.setText("$" + mBill.getTotal().toString());
+            updateViews();
         }
     };
+
+    private void updateViews() {
+        mBillDetailsTipPercentageTextView.setText("Tip (" + String.valueOf(mBill.getTipPercentage()) + "%)");
+        mBillDetailsTipTextView.setText("$" + mBill.getTip().toString());
+
+        String totalText = "$" + mBill.getTotal().toString();
+        mTotalTextView.setText(totalText);
+        mBillDetailsBillTextView.setText("$" + mBill.getBillAmount().toString());
+    }
 }
