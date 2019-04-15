@@ -1,5 +1,6 @@
 package com.rickh.simplebillsplitter;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -97,6 +98,15 @@ public class SplitBillActivity extends AppCompatActivity {
         nineButton.setOnClickListener(calculatorClickListener);
         decimalButton.setOnClickListener(calculatorClickListener);
         backspaceImage.setOnClickListener(calculatorClickListener);
+
+        mSplitBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                intent.putExtra("bill", mBill);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setSelectedChip(int chipId) {

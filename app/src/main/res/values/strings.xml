@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SimpleBillSplitter</string>
     <string name="title_split_bill">SPLIT BILL</string>
+    <string name="title_result">RESULT</string>
 </resources>

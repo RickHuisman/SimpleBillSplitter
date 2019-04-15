@@ -1,13 +1,14 @@
 package com.rickh.simplebillsplitter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Bill {
+public class Bill implements Serializable {
 
     private BigDecimal mTotal = new BigDecimal(0);
     private BigDecimal mBillAmount = new BigDecimal(0);
-    private int mFriends;
+    private int mFriends = 2;
     private BigDecimal mTip;
     private int mTipPercentage;
 
@@ -21,12 +22,12 @@ public class Bill {
     }
 
     public void addDecimal() {
-        String totalString = mBillAmount.toString();
-
-        System.out.println(totalString.concat(".1"));
-        mBillAmount = new BigDecimal(totalString.concat(".1"));
-
-        calculateTotal();
+//        String totalString = mBillAmount.toString();
+//
+//        System.out.println(totalString.concat(".1"));
+//        mBillAmount = new BigDecimal(totalString.concat(".1"));
+//
+//        calculateTotal();
     }
 
     public void backspace() {
