@@ -11,6 +11,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.math.BigDecimal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -102,9 +105,13 @@ public class SplitBillActivity extends AppCompatActivity {
         mSplitBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                intent.putExtra("bill", mBill);
-                startActivity(intent);
+                if (mBill.getTotal().compareTo(new BigDecimal(0.00)) == 0) {
+                    Snackbar.make(view, "Make sure to fill in a bill", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("bill", mBill);
+                    startActivity(intent);
+                }
             }
         });
     }
