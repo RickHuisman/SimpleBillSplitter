@@ -22,4 +22,9 @@
         <item name="android:textSize">14.22sp</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
+
+    <style name="TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="hintTextColor">@android:color/white</item>
+    </style>
 </resources>

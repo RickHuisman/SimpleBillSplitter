@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SplitBillActivity extends AppCompatActivity {
+public class SplitBillActivity extends AppCompatActivity implements SetTipDialog {
 
     private Chip[] mChips = new Chip[5];
     private Button mSplitBill;
@@ -152,6 +152,9 @@ public class SplitBillActivity extends AppCompatActivity {
                 case R.id.twenty_percent_chip:
                     percentage = 20;
                     break;
+                case R.id.custom_percent_chip:
+                    customTipDialog();
+                    break;
             }
             if (percentage != -1) {
                 mBill.setTipPercentage(percentage);
@@ -218,5 +221,38 @@ public class SplitBillActivity extends AppCompatActivity {
         String totalText = "$" + mBill.getTotal().toString();
         mTotalTextView.setText(totalText);
         mBillDetailsBillTextView.setText("$" + mBill.getBillAmount().toString());
+    }
+
+    private void updateCustomTipChip() {
+        Chip chip = findViewById(R.id.custom_percent_chip);
+        chip.setText(mBill.getTipPercentage() + "%");
+    }
+
+    private void customTipDialog() {
+        CustomTipDialog dialog = new CustomTipDialog();
+        dialog.show(getSupportFragmentManager(), "CustomTipDialog");
+    }
+
+    @Override
+    public void onSetTipClick(int tipPercentage) {
+        mBill.setTipPercentage(tipPercentage);
+        switch (tipPercentage) {
+            case 0:
+                setSelectedChip(R.id.zero_percent_chip);
+                break;
+            case 10:
+                setSelectedChip(R.id.ten_percent_chip);
+                break;
+            case 15:
+                setSelectedChip(R.id.fifteen_percent_chip);
+                break;
+            case 20:
+                setSelectedChip(R.id.twenty_percent_chip);
+                break;
+            default:
+                updateCustomTipChip();
+                break;
+        }
+        updateViews();
     }
 }

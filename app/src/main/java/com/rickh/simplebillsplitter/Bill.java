@@ -42,7 +42,10 @@ public class Bill implements Serializable {
     }
 
     public void calculateTotal() {
-        mTotal = mBillAmount.multiply(new BigDecimal("1." + String.valueOf(mTipPercentage)));
+        String multiplyText = mTipPercentage < 10 ? "1.0" : "1.";
+        multiplyText = multiplyText.concat(String.valueOf(mTipPercentage));
+
+        mTotal = mBillAmount.multiply(new BigDecimal(multiplyText));
 
         mTotal = mTotal.setScale(2, RoundingMode.HALF_UP);
         mTotal = new BigDecimal(mTotal.stripTrailingZeros().toPlainString());
