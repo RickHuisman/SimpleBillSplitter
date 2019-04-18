@@ -26,6 +26,7 @@ public class SplitBillActivity extends AppCompatActivity implements SetTipDialog
     private TextView mBillDetailsTipPercentageTextView;
     private TextView mBillDetailsTipTextView;
     private Bill mBill;
+    private int mLastSelectedChip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class SplitBillActivity extends AppCompatActivity implements SetTipDialog
         }
 
         setSelectedChip(R.id.zero_percent_chip);
+        mLastSelectedChip = R.id.zero_percent_chip;
 
         mSplitBill = findViewById(R.id.split_bill_button);
         mTotalTextView = findViewById(R.id.total_text_view);
@@ -136,6 +138,9 @@ public class SplitBillActivity extends AppCompatActivity implements SetTipDialog
     View.OnClickListener chipClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            if (view.getId() != R.id.custom_percent_chip) {
+                mLastSelectedChip = view.getId();
+            }
             setSelectedChip(view.getId());
 
             int percentage = -1;
@@ -254,5 +259,10 @@ public class SplitBillActivity extends AppCompatActivity implements SetTipDialog
                 break;
         }
         updateViews();
+    }
+
+    @Override
+    public void onHide() {
+        setSelectedChip(mLastSelectedChip);
     }
 }

@@ -44,7 +44,7 @@ public class ResultActivity extends AppCompatActivity {
 
         RecyclerView mFriendsList = findViewById(R.id.friends_recycler_view);
 
-        FriendListAdapter adapter = new FriendListAdapter();
+        FriendListAdapter adapter = new FriendListAdapter(mBill.getTotal());
 
         mFriendsList.setHasFixedSize(true);
         mFriendsList.setLayoutManager(new LinearLayoutManager(this));

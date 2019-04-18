@@ -2,6 +2,7 @@ package com.rickh.simplebillsplitter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,7 @@ import androidx.fragment.app.DialogFragment;
 public class CustomTipDialog extends DialogFragment {
 
     private SetTipDialog mListener;
+    private int mTipPercentage = -1;
 
     @Override
     public void onAttach(Context context) {
@@ -39,6 +41,10 @@ public class CustomTipDialog extends DialogFragment {
         final TextInputEditText textInput = view.findViewById(R.id.text_input);
         MaterialButton cancelButton = view.findViewById(R.id.cancel_button);
         final MaterialButton setTipButton = view.findViewById(R.id.set_tip_button);
+
+        if (mTipPercentage != -1) {
+            textInput.setText(String.valueOf(mTipPercentage));
+        }
 
         textInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -65,6 +71,7 @@ public class CustomTipDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 getDialog().hide();
+                mListener.onHide();
             }
         });
 
@@ -74,10 +81,18 @@ public class CustomTipDialog extends DialogFragment {
                 int tipPercentage = Integer.valueOf(textInput.getText().toString());
                 mListener.onSetTipClick(tipPercentage);
 
+                mTipPercentage = tipPercentage;
+
                 getDialog().hide();
             }
         });
 
         return builder.create();
+    }
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        mListener.onHide();
     }
 }
