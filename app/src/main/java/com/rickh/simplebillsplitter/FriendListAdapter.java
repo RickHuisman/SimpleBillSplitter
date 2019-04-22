@@ -38,7 +38,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Fr
         final Friend friend = mFriendList.get(position);
         holder.mFriendNameTextView.setText(friend.getName());
 
-        startUp(holder);
+        startUp(holder, friend);
 
         mSeekbarList.add(holder.mPercentageSeekbar);
         mMoneyList.add(holder.mMoneyTextView);
@@ -46,11 +46,11 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Fr
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 holder.mPercentageTextView.setText(progress + "%");
+                friend.setPercentage(new BigDecimal(progress));
 
                 if (fromUser) {
                     holder.mCheckBox.setChecked(false);
                     friend.setLocked(true);
-                    friend.setPercentage(new BigDecimal(progress));
 
                     holder.mMoneyTextView.setText("$" + mTotal.multiply(new BigDecimal(progress)).divide(new BigDecimal(100)));
 
@@ -80,7 +80,16 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Fr
                     int totalPercentageForUnLockedFriends = 100 - totalPerOfLocked;
 
                     // divide new percentage by lockedFriendCount
-                    BigDecimal newPercentagePerUnLockedFriend = new BigDecimal(totalPercentageForUnLockedFriends / (getItemCount() - lockedFriendCount));
+                    BigDecimal newPercentagePerUnLockedFriend;
+                    if (totalPercentageForUnLockedFriends <= 0) {
+                        newPercentagePerUnLockedFriend = new BigDecimal(0);
+                    } else {
+                        if ((getItemCount() - lockedFriendCount) == 0) {
+                            newPercentagePerUnLockedFriend = new BigDecimal(totalPercentageForUnLockedFriends);
+                        } else {
+                            newPercentagePerUnLockedFriend = new BigDecimal(totalPercentageForUnLockedFriends / (getItemCount() - lockedFriendCount));
+                        }
+                    }
 
                     // set new percentage to every unlocked friend
                     for (int i = 0; i < mFriendList.size(); i++) {
@@ -144,12 +153,13 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Fr
         });
     }
 
-    private void startUp(FriendHolder holder) {
+    private void startUp(FriendHolder holder, Friend friend) {
         BigDecimal money = mTotal.divide(new BigDecimal(getItemCount()), 0, RoundingMode.HALF_UP);
         holder.mMoneyTextView.setText("$" + money.toString());
 
         int progressPerFriend = 100 / getItemCount();
         holder.mPercentageSeekbar.setProgress(progressPerFriend);
+        friend.setPercentage(new BigDecimal(progressPerFriend));
         holder.mPercentageTextView.setText(progressPerFriend + "%");
     }
 

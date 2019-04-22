@@ -255,6 +255,7 @@ public class SplitBillActivity extends AppCompatActivity implements SetTipDialog
                 setSelectedChip(R.id.twenty_percent_chip);
                 break;
             default:
+                mLastSelectedChip = R.id.custom_percent_chip;
                 updateCustomTipChip();
                 break;
         }
